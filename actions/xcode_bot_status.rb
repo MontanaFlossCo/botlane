@@ -42,7 +42,7 @@ module Fastlane
         end
 
         if ENV["XCS_TESTS_COUNT"].to_i == 0
-            statusMessage = "Warning! '#{botName}' has no tests."
+            statusMessage = "Warning! The bot '#{botName}' has no tests."
         end
 
         if ENV["XCS_TEST_FAILURE_CHANGE"].to_i > 0
@@ -66,7 +66,7 @@ module Fastlane
 
         # Todo: deliver the Bot stats for coverage and tests
         if ENV["SLACK_URL"]
-          slackMessage = statusMessage ? "Xcode Bot Completed: #{statusMessage}" : "Xcode Bot Completed"
+          slackMessage = statusMessage ? "Xcode Bot #{botName} Completed: #{statusMessage}" : "Xcode Bot #{botName} Completed"
           slackArgs = Fastlane::ConfigurationHelper.parse(Fastlane::Actions::SlackAction, {
             message: slackMessage,
             success: integrationResult == "succeeded" ? true : false
