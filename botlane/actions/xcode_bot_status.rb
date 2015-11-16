@@ -30,9 +30,12 @@ module Fastlane
         botName = ENV["XCS_BOT_NAME"]
         
         if !botName
-            Helper.log.info "We're not running in the context of an Xcode Bot. Nothing to do!"
+            Helper.log.warn "We're not running in the context of an Xcode Bot. Nothing to do!"
             return
         end
+
+        integrationResult = ENV["XCS_INTEGRATION_RESULT"]
+        statusMessage = integrationResult
 
         if ENV["XCS_TESTS_CHANGE"].to_i > 0
             statusMessage = "Congratulations! New tests added to bot #{botName}!"
@@ -65,7 +68,7 @@ module Fastlane
         slackMessage = statusMessage ? "Xcode Bot Completed: #{statusMessage}" : "Xcode Bot Completed"
         slackArgs = Fastlane::ConfigurationHelper.parse(Fastlane::Actions::SlackAction, {
           message: slackMessage,
-          success: ENV["XCS_INTEGRATION_RESULT"] == "succeeded" ? true : false
+          success: integrationResult == "succeeded" ? true : false
         })
         
         Fastlane::Actions::SlackAction.run(slackArgs)

@@ -6,5 +6,14 @@ end
 
 desc "Bot started"
 lane :bot_start do
+  # Throw the user a bone if they're running locally and some stuff will not work
+  botName = ENV["XCS_BOT_NAME"]
+  if !botName
+    Helper.log.warn "We're not running in the context of an Xcode Bot. Just so you know."
+  end
+
+  # Prepare the dependenceis
+  # TODO: detect platform / see if carthage task does this automatically
+  # We probably need the fastlane script to be run with the correct platform in the first place
   carthage(platform: "iOS", use_ssh:true)
 end
