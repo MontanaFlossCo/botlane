@@ -1,0 +1,10 @@
+
+desc "Bot completed"
+lane :bot_complete do
+  xcode_bot_status
+end
+
+desc "Bot started"
+lane :bot_start do
+  carthage(platform: "iOS", use_ssh:true)
+end
