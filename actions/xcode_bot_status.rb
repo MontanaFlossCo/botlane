@@ -65,13 +65,17 @@ module Fastlane
         end
 
         # Todo: deliver the Bot stats for coverage and tests
-        slackMessage = statusMessage ? "Xcode Bot Completed: #{statusMessage}" : "Xcode Bot Completed"
-        slackArgs = Fastlane::ConfigurationHelper.parse(Fastlane::Actions::SlackAction, {
-          message: slackMessage,
-          success: integrationResult == "succeeded" ? true : false
-        })
-        
-        Fastlane::Actions::SlackAction.run(slackArgs)
+        if ENV["SLACK_URL"]
+          slackMessage = statusMessage ? "Xcode Bot Completed: #{statusMessage}" : "Xcode Bot Completed"
+          slackArgs = Fastlane::ConfigurationHelper.parse(Fastlane::Actions::SlackAction, {
+            message: slackMessage,
+            success: integrationResult == "succeeded" ? true : false
+          })
+
+          Fastlane::Actions::SlackAction.run(slackArgs)
+        else
+          Helper.log.warn "Can't announce the build on Slack as ENV[\"SLACK_URL\:] is not set"
+        end
 
       end
 

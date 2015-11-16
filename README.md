@@ -35,6 +35,10 @@ platform :ios do
   ...   
 ```
 
+You should also remove any `cocoapods` or `carthage` actions from your `before_all` lanes because the Xcode Bot will execute two `fastlane` lanes, which would mean your dependencies get updated twice. Which is lame at best, slow and problematic at worst.
+
+Botlane will initialise your Carthage dependencies for you.
+
 Now you should be able to run `fastlane bot_start` locally and check that works with no errors.
 
 ## Step 3 — Setup your Xcode Bots to use Botlane trigger scripts
