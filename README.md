@@ -7,7 +7,9 @@ These scripts make it easy to use `fastlane` within Xcode Bots to update your de
 
 First, clone the Botlane scripts repository into your project.
 
-`git submodule add https://github.com/MontanaFlossCo/botlane.git`
+`git clone https://github.com/MontanaFlossCo/botlane.git`
+
+We clone the repository into your code base so that you can conmit the scripts to git yourself as part of your project. Use of submodules requires more Xcode Bot shenanigans and... you don't really want your CI server to be downloading code from some public repository you don't control do you? The correct answer is **NO**.
 
 ## Step 2 — edit your Fastlane configuration to use Botlane 
 
