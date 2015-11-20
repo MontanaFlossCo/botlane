@@ -17,3 +17,10 @@ lane :bot_start do
   # We probably need the fastlane script to be run with the correct platform in the first place
   carthage(platform: "iOS", use_ssh:true)
 end
+
+desc "Bot completed test"
+lane :bot_complete_test do
+  ENV["XCS_BOT_NAME"] = "Test"
+  ENV["XCS_INTEGRATION_RESULT"] = "succeded"
+  ENV["XCS_SOURCE_DIR"] = "."
+end
